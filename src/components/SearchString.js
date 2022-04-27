@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 //import UserService from '../services/UserService'
- 
 
-function SearchUserComponent() {
+
+function SearchUserComponent(props) {
 
     const [users, setUsers] = useState([])
     const [value, setValue] = useState("")
@@ -14,36 +14,31 @@ function SearchUserComponent() {
         console.log(value)
         setUsers(response.data)
     }
-
-    // useEffect(() => {
-    //    fetchPersons();
-    //     //console.log("первая отработка")
-    // }, [value])
-
-    useEffect(() => {
-        fetchPersons();
-         //console.log("первая отработка")
-     }, [])
  
 
+    useEffect(() => {
+        fetchPersons(); 
+    }, [])
+
+
     return (
-        <div> 
+        <div>
             <div>
                 <form className="d-flex m-2 ">
                     <input
                         className="form-control me-2"
                         type="search"
-                        placeholder="Search"
+                        placeholder="Поиск" 
                         aria-label="Search"
                         value={value}
                         onChange={event => setValue(event.target.value)}
                     />
                     <button className="btn btn-outline-success" onClick={fetchPersons}>
-                        Search
+                        Искать
                     </button>
                 </form>
             </div>
-            <div className="list-group   m-2 ">
+            <div className="list-group m-2">
                 <a
                     href="#"
                     className="list-group-item list-group-item-action active"
@@ -51,15 +46,14 @@ function SearchUserComponent() {
                 >
                     {
                         users.length !== 0
-                            ? <div>Search results</div>
-                            : <div>No users found</div>
+                            ? <div>Результаты поиска:</div>
+                            : <div>Ничего не найдено</div>
                     }
-                </a>
-
-                { 
+                </a> 
+                {
                     users.map(
-                        user =>
-                            <a href="#" className="list-group-item list-group-item-action">
+                        user => 
+                            <a onClick={(e) => props.getUser(user.userId, e)} className="list-group-item list-group-item-action" >
                                 {user.nickName}
                             </a>
                     )

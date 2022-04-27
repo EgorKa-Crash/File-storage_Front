@@ -10,8 +10,9 @@ class UserComponent2 extends React.Component {
     }
 
     componentDidMount() {
-        UserService.getUsers(this.props.users).then((response) => {
+        UserService.getUsers(this.props.type).then((response) => {
             this.setState({ users: response.data })
+            //console.log("запрос отправлен" + response.data)
         });
     }
 

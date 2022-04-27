@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import FileService from '../services/FileService'
+import SelectBar from './SelectBar';
 
 function FileComponentMainPerson(user) {
 
 
     const [files, setFiles] = useState([])
+
 
     function componentDidMount() {
         FileService.getFiles(user.user_id).then((response) => {
@@ -13,14 +15,16 @@ function FileComponentMainPerson(user) {
         });
     }
 
+    async function deleteFile(e, file_id) {
+        e.preventDefault();
+        await FileService.deleteFile(file_id); 
+        setFiles(files.filter(i => i.fileId != file_id));
+    }
+
     useEffect(() => {
         componentDidMount();
     }, [])
 
-    // async function fetchPersons(e) { // 
-    //     e.preventDefault();
-    //     await axios.put('http://localhost:9090/file/'+file_id); 
-    // }
 
     return (
         <div>
@@ -35,24 +39,22 @@ function FileComponentMainPerson(user) {
                             <div className="col-md-auto p-2">{file.capacity} byte</div>
                             <div className="col" />
                             <div className="col-sm-3">
-                                <select
-                                    className="form-select"
-                                >
-                                    <option selected>{file.availability}</option>
-                                    <option value={1}>
-                                        {
-                                            file.availability == 'Private'?
-                                            ('Public'):
-                                            ('Private')
-                                        }
-                                        </option> 
-                                </select>
+ 
+
+                                <SelectBar file={file} />
+
+
                             </div>
 
                             <div className="col-md-auto ">
-                                <a href="#" className="btn btn-primary">
+                                {/* <a href="#" className="btn btn-primary" onClick={FileService.deleteFile(file.fileId)}>
+                                    Delete
+                                </a>  */}
+
+                                <a href="#" className="btn btn-primary" onClick={(e) => deleteFile(e, file.fileId)}>
                                     Delete
                                 </a>
+
                             </div>
                             <div className="col-md-auto ">
                                 <a href="#" className="btn btn-primary">

@@ -22,7 +22,7 @@ function UserFiles(props) {
                                             className="col-md-auto p-2   fs-3 "
                                             style={{ fontWeight: "bold" }}
                                         >
-                                            {user.login}
+                                            {user.nickName}
                                         </div>
                                         <div className="col" />
                                         {props.mainUserId == user.userId ? (<div className="col-md-auto p-2">
