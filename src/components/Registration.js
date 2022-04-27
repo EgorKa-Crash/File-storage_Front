@@ -93,12 +93,12 @@ function Regiatration(props) {
         var logToken
         try {
             logToken = AuthentificationService.login(authorization);
-            console.log((await logToken).data)
+            //console.log((await logToken).data)
             //alert("Вы вошли под логином " + (await logToken).data.login);
             props.setMainUser((await logToken).data);
         }
         catch (error) {
-            alert("Ошибка входа, какзан неверный логин или пароль.");
+            alert("Ошибка входа, указан неверный логин или пароль.");
         }
 
 

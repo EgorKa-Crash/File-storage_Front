@@ -8,12 +8,13 @@ function NavBarComponent(props) {
     // const [users, setUsers] = useState([])
     // const [value, setValue] = useState("")
 
-    // async function fetchPersons(e) { // 
-    //     e.preventDefault();
-    //     const response = await axios.get('http://localhost:9090/users/searchBar?searchBar=' + value);
-    //     console.log(value)
-    //     setUsers(response.data)
-    // }
+    async function dropUser() {  
+        var testObject1 = { login: "", token: "" };
+        props.setMainUser(testObject1) 
+       // var testObject = { a: testObject1 }
+        localStorage.setItem("mainUser", JSON.stringify(testObject1));
+        console.log("выходим из аккаунта")  
+    }
 
 
     // // useEffect(() => {
@@ -60,11 +61,11 @@ function NavBarComponent(props) {
                                 <div className="dropdown">
 
                                     {
-                                        props.mainUser.token == null
+                                        props.mainUser.token === ""
                                             ? (
                                                 <>
-                                                <Registration mainUser={props.mainUser} setMainUser={props.setMainUser}/> 
-                                                </> 
+                                                    <Registration mainUser={props.mainUser} setMainUser={props.setMainUser} />
+                                                </>
                                             )
                                             :
                                             (
@@ -76,15 +77,15 @@ function NavBarComponent(props) {
                                                         data-bs-toggle="dropdown"
                                                         aria-expanded="false"
                                                     >
-                                                        {props.mainUser.login} 
+                                                        {props.mainUser.login}
                                                     </button>
                                                     <ul
                                                         className="dropdown-menu"
                                                         aria-labelledby="dropdownMenuButton1"
                                                     >
                                                         <li>
-                                                            <a className="dropdown-item" href="#" onClick={() => props.setMainUser({login: null, token: null})}>
-                                                                Выйти 
+                                                            <a className="dropdown-item" href="#" onClick={() => dropUser()}>
+                                                                Выйти
                                                             </a>
                                                         </li>
                                                         <li>
