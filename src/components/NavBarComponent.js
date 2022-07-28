@@ -1,6 +1,7 @@
 //import axios from 'axios';, { useEffect, useState }
 import React from 'react'
 import Registration from './Registration';
+import UserInfirmPage from './UserInfirmPage';
 
 
 function NavBarComponent(props) {
@@ -52,9 +53,13 @@ function NavBarComponent(props) {
                     <div>
                         <ul className="nav me-auto  justify-content-md-end">
                             <li className="nav-item active ">
-                                <a onClick={props.mainPageFiles} className="btn btn-outline-secondary me-2" href="#">
-                                    Основная страница
+                                <a onClick={props.myFiles} className="btn btn-outline-secondary me-2" href="#">
+                                    Мои файлы
                                 </a>
+                                <a onClick={props.mainPageFiles} className="btn btn-outline-secondary me-2" href="#">
+                                    Лента
+                                </a>
+                                <UserInfirmPage user={props.mainUser}/>
                             </li>
                             <li className="nav-item ">
 
@@ -77,7 +82,7 @@ function NavBarComponent(props) {
                                                         data-bs-toggle="dropdown"
                                                         aria-expanded="false"
                                                     >
-                                                        {props.mainUser.login}
+                                                        {props.mainUser.nickName}
                                                     </button>
                                                     <ul
                                                         className="dropdown-menu"
@@ -93,18 +98,13 @@ function NavBarComponent(props) {
                                                                 О программе
                                                             </a>
                                                         </li>
-                                                        <li>
-                                                            <a className="dropdown-item" href="#">
-                                                                Страница админестратора(в разработке)
-                                                            </a>
+                                                        <li> 
+                                                            <button className="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightUser" aria-controls="offcanvasRight">О пользователе</button>
                                                         </li>
                                                     </ul>
                                                 </>
                                             )
-                                    }
-
-
-
+                                    }  
                                 </div>
                             </li>
                         </ul>

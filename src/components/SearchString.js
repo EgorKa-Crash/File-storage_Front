@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import UserService from '../services/UserService';
 //import UserService from '../services/UserService'
 
 
@@ -7,19 +8,22 @@ function SearchUserComponent(props) {
 
     const [users, setUsers] = useState([])
     const [value, setValue] = useState("")
-
-    async function fetchPersons(e) { // 
+//async
+     function fetchPersons(e) { // 
         e.preventDefault();
-        const response = await axios.get('http://localhost:9090/users/searchBar?searchBar=' + value);
-        console.log(value)
-        setUsers(response.data)
+        if (value.length !== 0) {
+            UserService.getSearchUsers(value).then((response) => {
+                setUsers(response.data)
+            });
+        } else {
+            setUsers([])
+        }
     }
- 
 
-    useEffect(() => {
-        fetchPersons(); 
-    }, [])
 
+    // useEffect(() => {
+    //     fetchPersons();
+    // }, [])//value 
 
     return (
         <div>
@@ -28,16 +32,18 @@ function SearchUserComponent(props) {
                     <input
                         className="form-control me-2"
                         type="search"
-                        placeholder="Поиск" 
+                        placeholder="Поиск"
                         aria-label="Search"
                         value={value}
+                        //onChange={event => fetchPersons(event)}
                         onChange={event => setValue(event.target.value)}
                     />
-                    <button className="btn btn-outline-success" onClick={fetchPersons}>
+                    <button className="btn btn-outline-success" onClick={e => fetchPersons(e)}>
                         Искать
                     </button>
                 </form>
             </div>
+
             <div className="list-group m-2">
                 <a
                     href="#"
@@ -47,18 +53,20 @@ function SearchUserComponent(props) {
                     {
                         users.length !== 0
                             ? <div>Результаты поиска:</div>
-                            : <div>Ничего не найдено</div>
+                            : <div>Поиск пользователей</div>
+                        //: (value.length !== 0?
+                        //<div>Ничего не найдено</div>
+                        //:<div>Поиск пользователей</div>)
                     }
-                </a> 
+                </a>
                 {
                     users.map(
-                        user => 
+                        user =>
                             <a onClick={(e) => props.getUser(user.userId, e)} className="list-group-item list-group-item-action" >
                                 {user.nickName}
                             </a>
                     )
                 }
-
             </div>
         </div>
     );

@@ -96,6 +96,7 @@ function Regiatration(props) {
             //console.log((await logToken).data)
             //alert("Вы вошли под логином " + (await logToken).data.login);
             props.setMainUser((await logToken).data);
+            window.location.reload();
         }
         catch (error) {
             alert("Ошибка входа, указан неверный логин или пароль.");
@@ -155,11 +156,11 @@ function Regiatration(props) {
 
     return (
         <div>
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Вход</button>
+            <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Вход</button>
 
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
-                <div class="offcanvas-body">
+                <div className="offcanvas-body">
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item" role="presentation">
                             <button

@@ -1,25 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import UserService from '../services/UserService'
 
-function UsersDropdown(props) { 
+
+
+function UsersDropdown(props) {
+
+    function getUsersNames() {
+        UserService.getUsers(props.type).then((response) => {
+            setUsers(response.data)
+            //console.log("запрос на список пользователей отправлен")
+        });
+    }
+
+    // globalVar.callback = () => {
+    //     console.log("обновил компонент извне1")
+    //     reload()
+    // };
+
+
+    // const memoizedCallback = useCallback(
+    //     () => {
+    //         console.log("обновил компонент извне1")
+    //         reload()
+    //     }
+    // );
+
 
     const [users, setUsers] = useState([])
- 
 
-    useEffect(() => { 
-        if(props.mainUser.token === ""){
+
+    useEffect(() => {
+        if (props.mainUser.token === "") {
             setUsers([])
-            console.log("обнулил список пользоватеей")
+            //console.log("обнулил список пользоватеей")
         }
-        else{
-            UserService.getUsers(props.type, props.mainUser.token).then((response) => {
-                setUsers(response.data)
-                console.log("запрос на список пользователей отправлен")
-            });
-        } 
+        else { 
+            getUsersNames()
+        }
     }
-    , [props.mainUser.token])
- 
+        , [props.mainUser.token])
+
 
     return (
         <div>
@@ -33,7 +53,7 @@ function UsersDropdown(props) {
                         aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne"
                         style={{ backgroundColor: "#c1daff" }}
-                    //onClick={ e => componentDidMount(e)}
+                        onClick={e => getUsersNames()}
                     >
                         {props.users}
                     </button>
@@ -47,7 +67,9 @@ function UsersDropdown(props) {
                         {
                             users.map(
                                 user =>
-                                    <a onClick={(e) => props.getUser(user.userId, e)} className="list-group-item list-group-item-action" >
+                                    <a onClick={(e) => props.getUser(user.userId, e)}
+                                        className="list-group-item list-group-item-action"
+                                        key={user.userId} >
                                         {user.nickName}
                                     </a>
                             )
