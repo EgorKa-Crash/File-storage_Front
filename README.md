@@ -4,5 +4,5 @@ This project is the front part of the RESTful application. It is a React project
 
 # Examples of forms
 
-![alt text](src\components\img\Screenshot_2.jpg)
-![alt text](src\components\img\Screenshot_5.jpg)
+![alt text](src\components\img\Screenshot_2.png)
+![alt text](src\components\img\Screenshot_5.png)
